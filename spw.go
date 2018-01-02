@@ -30,6 +30,7 @@ func main() {
 	if err != nil {
 		panic("Wrong.")
 	}
+	// Make sure the password contain at least one char for each class of characters
 	for i := 0; i < 4; i++ {
 		dict := Chars[i]
 		pw[i] = dict[int(indicies[i])%len(dict)]
