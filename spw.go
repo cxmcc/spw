@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"fmt"
+	"github.com/atotto/clipboard"
 )
 
 var Upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -50,4 +51,5 @@ func main() {
 		pw[i], pw[j] = pw[j], pw[i]
 	}
 	fmt.Println(string(pw))
+	clipboard.WriteAll(string(pw))
 }
