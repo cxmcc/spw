@@ -6,47 +6,47 @@ import (
 	"github.com/atotto/clipboard"
 )
 
-var Upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-var Lower = []byte("abcdefghijklmnopqrstuvwxyz")
-var Digit = []byte("0123456789")
-var Special = []byte("`~!@#$%^&*()-=_+[]\\{};':\",./<>?")
-var Chars = [][]byte{
-	Upper, Lower, Digit, Special,
+var upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+var lower = []byte("abcdefghijklmnopqrstuvwxyz")
+var digit = []byte("0123456789")
+var special = []byte("`~!@#$%^&*()-=_+[]\\{};':\",./<>?")
+var chars = [][]byte{
+	upper, lower, digit, special,
 }
-var All []byte
+var allChars []byte
 
-const Length = 16
+const length = 16
 
 func initConstants() {
-	for _, r := range Chars {
-		All = append(All, r...)
+	for _, r := range chars {
+		allChars = append(allChars, r...)
+	}
+}
+
+func generateBytes(a []byte) {
+	_, err := rand.Read(a)
+	if err != nil {
+		panic("Error generating random bytes.")
 	}
 }
 
 func generatePw() string {
-	pw := make([]byte, Length)
-	indicies := make([]byte, Length)
-	_, err := rand.Read(indicies)
-	if err != nil {
-		panic("Wrong.")
-	}
+	numSwaps := 1024
+	pw := make([]byte, length)
+	indicies := make([]byte, length)
+	swap := make([]byte, numSwaps*2)
+	generateBytes(indicies)
+	generateBytes(swap)
 	// Make sure the password contain at least one char for each class of characters
 	for i := 0; i < 4; i++ {
-		dict := Chars[i]
+		dict := chars[i]
 		pw[i] = dict[int(indicies[i])%len(dict)]
 	}
-	for i := 4; i < Length; i++ {
-		pw[i] = All[int(indicies[i])%len(All)]
+	for i := 4; i < length; i++ {
+		pw[i] = allChars[int(indicies[i])%len(allChars)]
 	}
-	count := 0
-	swap := make([]byte, 2)
-	for count < 1000 {
-		count += 1
-		_, err := rand.Read(swap)
-		if err != nil {
-			panic("Wrong.")
-		}
-		i, j := swap[0]%Length, swap[1]%Length
+	for c := 0; c < numSwaps; c++ {
+		i, j := swap[c*2]%length, swap[c*2+1]%length
 		pw[i], pw[j] = pw[j], pw[i]
 	}
 	return string(pw)
