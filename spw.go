@@ -16,8 +16,9 @@ var chars = [][]byte{
 var allChars []byte
 
 const length = 16
+const numSwaps = 1024
 
-func initConstants() {
+func init() {
 	for _, r := range chars {
 		allChars = append(allChars, r...)
 	}
@@ -31,7 +32,6 @@ func generateBytes(a []byte) {
 }
 
 func generatePw() string {
-	numSwaps := 1024
 	pw := make([]byte, length)
 	indicies := make([]byte, length)
 	swap := make([]byte, numSwaps*2)
@@ -53,7 +53,6 @@ func generatePw() string {
 }
 
 func main() {
-	initConstants()
 	pw := generatePw()
 	fmt.Println(pw)
 	clipboard.WriteAll(pw)
