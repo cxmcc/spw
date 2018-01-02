@@ -49,12 +49,12 @@ func generatePw() string {
 		i, j := swap[0]%Length, swap[1]%Length
 		pw[i], pw[j] = pw[j], pw[i]
 	}
-    return string(pw)
+	return string(pw)
 }
 
 func main() {
 	initConstants()
-    pw := generatePw()
+	pw := generatePw()
 	fmt.Println(pw)
 	clipboard.WriteAll(pw)
 }
