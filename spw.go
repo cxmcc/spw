@@ -23,8 +23,7 @@ func initConstants() {
 	}
 }
 
-func main() {
-	initConstants()
+func generatePw() string {
 	pw := make([]byte, Length)
 	indicies := make([]byte, Length)
 	_, err := rand.Read(indicies)
@@ -50,6 +49,12 @@ func main() {
 		i, j := swap[0]%Length, swap[1]%Length
 		pw[i], pw[j] = pw[j], pw[i]
 	}
-	fmt.Println(string(pw))
-	clipboard.WriteAll(string(pw))
+    return string(pw)
+}
+
+func main() {
+	initConstants()
+    pw := generatePw()
+	fmt.Println(pw)
+	clipboard.WriteAll(pw)
 }
