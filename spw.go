@@ -30,10 +30,10 @@ func main() {
 	if err != nil {
 		panic("Wrong.")
 	}
-	pw[0] = Upper[int(indicies[0])%len(Upper)]
-	pw[1] = Lower[int(indicies[1])%len(Lower)]
-	pw[2] = Digit[int(indicies[2])%len(Digit)]
-	pw[3] = Special[int(indicies[3])%len(Special)]
+	for i := 0; i < 4; i++ {
+		dict := Chars[i]
+		pw[i] = dict[int(indicies[i])%len(dict)]
+	}
 	for i := 4; i < Length; i++ {
 		pw[i] = All[int(indicies[i])%len(All)]
 	}
