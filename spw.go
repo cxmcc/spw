@@ -9,7 +9,7 @@ import (
 var Upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 var Lower = []byte("abcdefghijklmnopqrstuvwxyz")
 var Digit = []byte("0123456789")
-var Special = []byte("!@#$%^&*()-_=+,.?/:;{}[]`~\"")
+var Special = []byte("`~!@#$%^&*()-=_+[]\\{};':\",./<>?")
 var Chars = [][]byte{
 	Upper, Lower, Digit, Special,
 }
