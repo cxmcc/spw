@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"github.com/atotto/clipboard"
+	"github.com/nbutton23/zxcvbn-go"
 )
 
 var upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -15,7 +16,7 @@ var chars = [][]byte{
 }
 var allChars []byte
 
-const length = 16
+const length = 12
 const numSwaps = 1024
 
 func init() {
@@ -53,7 +54,15 @@ func generatePw() string {
 }
 
 func main() {
-	pw := generatePw()
+	var pw string
+	for {
+		pw = generatePw()
+		match := zxcvbn.PasswordStrength(pw, nil)
+		if match.Score == 4 {
+			break
+		}
+	}
+
 	fmt.Println(pw)
 	clipboard.WriteAll(pw)
 }
