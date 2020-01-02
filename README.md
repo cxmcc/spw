@@ -3,8 +3,10 @@ Simple Password Generator
 
 ## help
 ```bash
-$ spw --help
+$ spw -help
 Usage of spw:
+  -n int
+    	length of password (default 16)
   -w	without special characters
 ```
 
@@ -12,9 +14,11 @@ Usage of spw:
 
 ```bash
 $ spw
-a/^9JKqzs.:P
+@JJ0ha"Srp5BJ^zB
 
-# without speical chars
 $ spw -w
-QARuU1wM8jdk
+EjH8Kisr41DMJAgg
+
+$ spw -n 30
+r(Q^,Uzoe`,v+!$s8mYB:s#p<>WI#9
 ```

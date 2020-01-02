@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"github.com/atotto/clipboard"
 	"github.com/nbutton23/zxcvbn-go"
+	"os"
 )
 
 var withoutSpecial bool
+var length int
 var upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 var lower = []byte("abcdefghijklmnopqrstuvwxyz")
 var digit = []byte("0123456789")
@@ -22,12 +24,17 @@ var charsWithoutSpecial = [][]byte{
 var allCharsWithSpecial []byte
 var allCharsWithoutSpecial []byte
 
-const length = 12
 const numSwaps = 1024
 
 func init() {
 	flag.BoolVar(&withoutSpecial, "w", false, "without special characters")
+	flag.IntVar(&length, "n", 16, "length of password")
+
 	flag.Parse()
+	if length < 12 {
+		fmt.Fprintln(os.Stderr, "password length too short.")
+		os.Exit(1)
+	}
 	for _, r := range charsWithSpecial {
 		allCharsWithSpecial = append(allCharsWithSpecial, r...)
 	}
@@ -70,7 +77,7 @@ func generatePw() string {
 		pw[i] = allChars[int(indicies[i])%len(allChars)]
 	}
 	for c := 0; c < numSwaps; c++ {
-		i, j := swap[c*2]%length, swap[c*2+1]%length
+		i, j := int(swap[c*2])%length, int(swap[c*2+1])%length
 		pw[i], pw[j] = pw[j], pw[i]
 	}
 	return string(pw)
