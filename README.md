@@ -9,5 +9,5 @@ a/^9JKqzs.:P
 
 # without speical chars
 $ spw -w
-UvTXSp66oxf
+QARuU1wM8jdk
 ```
