@@ -66,7 +66,7 @@ func generatePw() string {
 		dict := chars[i]
 		pw[i] = dict[int(indicies[i])%len(dict)]
 	}
-	for i := 4; i < length; i++ {
+	for i := len(chars); i < length; i++ {
 		pw[i] = allChars[int(indicies[i])%len(allChars)]
 	}
 	for c := 0; c < numSwaps; c++ {
