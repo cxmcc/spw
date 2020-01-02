@@ -2,26 +2,37 @@ package main
 
 import (
 	"crypto/rand"
+	"flag"
 	"fmt"
 	"github.com/atotto/clipboard"
 	"github.com/nbutton23/zxcvbn-go"
 )
 
+var withoutSpecial bool
 var upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 var lower = []byte("abcdefghijklmnopqrstuvwxyz")
 var digit = []byte("0123456789")
 var special = []byte("`~!@#$%^&*()-=_+[]\\{};':\",./<>?")
-var chars = [][]byte{
+var charsWithSpecial = [][]byte{
 	upper, lower, digit, special,
 }
-var allChars []byte
+var charsWithoutSpecial = [][]byte{
+	upper, lower, digit,
+}
+var allCharsWithSpecial []byte
+var allCharsWithoutSpecial []byte
 
 const length = 12
 const numSwaps = 1024
 
 func init() {
-	for _, r := range chars {
-		allChars = append(allChars, r...)
+	flag.BoolVar(&withoutSpecial, "w", false, "without special characters")
+	flag.Parse()
+	for _, r := range charsWithSpecial {
+		allCharsWithSpecial = append(allCharsWithSpecial, r...)
+	}
+	for _, r := range charsWithoutSpecial {
+		allCharsWithoutSpecial = append(allCharsWithoutSpecial, r...)
 	}
 }
 
@@ -33,13 +44,25 @@ func generateBytes(a []byte) {
 }
 
 func generatePw() string {
+	var chars [][]byte
+	var allChars []byte
+
+	if withoutSpecial {
+		chars = charsWithoutSpecial
+		allChars = allCharsWithoutSpecial
+	} else {
+		chars = charsWithSpecial
+		allChars = allCharsWithSpecial
+	}
+
 	pw := make([]byte, length)
 	indicies := make([]byte, length)
 	swap := make([]byte, numSwaps*2)
+
 	generateBytes(indicies)
 	generateBytes(swap)
 	// Make sure the password contain at least one char for each class of characters
-	for i := 0; i < 4; i++ {
+	for i := 0; i < len(chars); i++ {
 		dict := chars[i]
 		pw[i] = dict[int(indicies[i])%len(dict)]
 	}
