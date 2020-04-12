@@ -6,7 +6,7 @@ Simple Password Generator
 Usage of spw:
   -n int
     	length of password (default 32)
-  -s	do not print the password
+  -s	do not print the password (only copy to clipboard)
   -w	without special characters
 ```
 
