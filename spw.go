@@ -30,7 +30,7 @@ const numSwaps = 1024
 func init() {
 	flag.BoolVar(&withoutSpecial, "w", false, "without special characters")
 	flag.BoolVar(&silent, "s", false, "do not print the password")
-	flag.IntVar(&length, "n", 16, "length of password")
+	flag.IntVar(&length, "n", 32, "length of password")
 
 	flag.Parse()
 	if length < 12 {
