@@ -14,11 +14,11 @@ Usage of spw:
 
 ```bash
 $ spw
-@JJ0ha"Srp5BJ^zB
+-8n[z_DkzO;x4byPI4i]>sO!i1hjH}~_
 
 $ spw -w
-EjH8Kisr41DMJAgg
+9BX96PrVSSXJAZYVAdChHy6Ygt76U368
 
-$ spw -n 30
-r(Q^,Uzoe`,v+!$s8mYB:s#p<>WI#9
+$ spw -n 50
+DJM.g}GN5zj.0##Ppwug'&SCeoE8Bmr/~}y7zJ9S1K!s%Gt/6E
 ```
