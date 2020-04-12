@@ -95,10 +95,14 @@ func main() {
 		}
 	}
 
+	err := clipboard.WriteAll(pw)
+	if err != nil {
+		panic("Error when writing to clipboard.")
+	}
+
 	if !silent {
 		fmt.Println(pw)
 	} else {
 		fmt.Fprintln(os.Stderr, "NOTE: Generated password sent to clipboard.")
 	}
-	clipboard.WriteAll(pw)
 }
