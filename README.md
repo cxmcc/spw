@@ -3,10 +3,10 @@ Simple Password Generator
 
 ## help
 ```bash
-$ spw -help
 Usage of spw:
   -n int
     	length of password (default 16)
+  -s	do not print the password
   -w	without special characters
 ```
 
