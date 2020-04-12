@@ -21,4 +21,7 @@ $ spw -w
 
 $ spw -n 50
 DJM.g}GN5zj.0##Ppwug'&SCeoE8Bmr/~}y7zJ9S1K!s%Gt/6E
+
+$ spw -s
+NOTE: Generated password sent to clipboard.
 ```

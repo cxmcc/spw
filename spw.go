@@ -97,6 +97,8 @@ func main() {
 
 	if !silent {
 		fmt.Println(pw)
+	} else {
+		fmt.Fprintln(os.Stderr, "NOTE: Generated password sent to clipboard.")
 	}
 	clipboard.WriteAll(pw)
 }
