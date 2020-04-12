@@ -2,7 +2,7 @@
 Simple Password Generator
 
 ## help
-```bash
+```
 Usage of spw:
   -n int
     	length of password (default 16)
