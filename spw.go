@@ -10,7 +10,7 @@ import (
 )
 
 var withoutSpecial bool
-var silent bool
+var doPrint bool
 var length int
 var upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 var lower = []byte("abcdefghijklmnopqrstuvwxyz")
@@ -29,7 +29,7 @@ const numSwaps = 1024
 
 func init() {
 	flag.BoolVar(&withoutSpecial, "w", false, "without special characters")
-	flag.BoolVar(&silent, "s", false, "do not print the password (only copy to clipboard)")
+	flag.BoolVar(&doPrint, "p", false, "print the password, in addition to copying to clipboard)")
 	flag.IntVar(&length, "n", 32, "length of password")
 
 	flag.Parse()
@@ -100,7 +100,7 @@ func main() {
 		panic("Error when writing to clipboard.")
 	}
 
-	if !silent {
+	if doPrint {
 		fmt.Println(pw)
 	} else {
 		fmt.Fprintln(os.Stderr, "NOTE: Generated password sent to clipboard.")
