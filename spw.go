@@ -7,9 +7,11 @@ import (
 	"github.com/atotto/clipboard"
 	"github.com/nbutton23/zxcvbn-go"
 	"os"
+	"time"
 )
 
 var withoutSpecial bool
+var noWipeClipboard bool
 var doPrint bool
 var length int
 var upper = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -29,6 +31,7 @@ const numSwaps = 1024
 
 func init() {
 	flag.BoolVar(&withoutSpecial, "w", false, "without special characters")
+	flag.BoolVar(&noWipeClipboard, "c", false, "do not wipe password in clipboard after 60s")
 	flag.BoolVar(&doPrint, "p", false, "print the password, in addition to copying to clipboard)")
 	flag.IntVar(&length, "n", 32, "length of password")
 
@@ -104,5 +107,11 @@ func main() {
 		fmt.Println(pw)
 	} else {
 		fmt.Fprintln(os.Stderr, "NOTE: Generated password sent to clipboard.")
+	}
+	if !noWipeClipboard {
+		fmt.Fprintln(os.Stderr, "NOTE: Clipboard content to be removed in 60s.")
+		time.Sleep(60 * time.Second)
+		clipboard.WriteAll("")
+		fmt.Fprintln(os.Stderr, "NOTE: Clipboard content removed.")
 	}
 }
