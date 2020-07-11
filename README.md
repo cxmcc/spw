@@ -4,6 +4,7 @@ Simple Password Generator
 ## help
 ```
 Usage of spw:
+  -c	do not wipe password in clipboard after 60s
   -n int
     	length of password (default 32)
   -p	print the password, in addition to copying to clipboard)
@@ -24,4 +25,6 @@ DJM.g}GN5zj.0##Ppwug'&SCeoE8Bmr/~}y7zJ9S1K!s%Gt/6E
 
 $ spw
 NOTE: Generated password sent to clipboard.
+NOTE: Clipboard content to be removed in 60s.
+NOTE: Clipboard content removed.
 ```
