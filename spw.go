@@ -7,6 +7,8 @@ import (
 	"github.com/atotto/clipboard"
 	"github.com/nbutton23/zxcvbn-go"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 )
 
@@ -88,6 +90,17 @@ func generatePw() string {
 	return string(pw)
 }
 
+func setupInterruptHandler() {
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-c
+		fmt.Fprintln(os.Stderr, "NOTE: Received keyboard interrupt. Clipboard content removed.")
+		clipboard.WriteAll("")
+		os.Exit(0)
+	}()
+}
+
 func main() {
 	var pw string
 	for {
@@ -109,9 +122,11 @@ func main() {
 		fmt.Fprintln(os.Stderr, "NOTE: Generated password sent to clipboard.")
 	}
 	if !noWipeClipboard {
+		setupInterruptHandler()
 		fmt.Fprintln(os.Stderr, "NOTE: Clipboard content to be removed in 60s.")
 		time.Sleep(60 * time.Second)
 		clipboard.WriteAll("")
 		fmt.Fprintln(os.Stderr, "NOTE: Clipboard content removed.")
+		os.Exit(0)
 	}
 }
